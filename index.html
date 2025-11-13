@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Школа Афина</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- Шрифты (можно убрать при желании) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f6f3ea;
+      --bg-soft: #fbf7ef;
+      --accent: #cfa75b;
+      --accent-soft: rgba(207, 167, 91, 0.2);
+      --accent-strong: #b88d3f;
+      --text: #2b2a33;
+      --text-muted: #7a7a86;
+      --card: #ffffff;
+      --border-soft: rgba(0, 0, 0, 0.08);
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.08);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, #fffdf7 0, #f3ecdd 40%, #efe3cf 70%, #e7dbc5 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.75));
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .header-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 12px 20px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      border: 1px solid var(--accent-soft);
+      background:
+        radial-gradient(circle at 30% 20%, #fff7dd 0, #f6cf7a 26%, #cfa75b 60%, #8b642b 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.8), 0 6px 16px rgba(0, 0, 0, 0.18);
+      font-size: 17px;
+      font-family: "Playfair Display", serif;
+      color: #3e2910;
+    }
+
+    .logo-text-main {
+      font-family: "Playfair Display", serif;
+      font-size: 18px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .logo-text-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .header-cta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 9px 18px;
+      font-size: 13px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.18s ease-out;
+      white-space: nowrap;
+      background: transparent;
+      color: var(--text);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #f6d27f, #e0ac50);
+      color: #3d2b10;
+      font-weight: 600;
+      box-shadow: 0 10px 26px rgba(187, 145, 74, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 32px rgba(145, 110, 54, 0.35);
+      filter: brightness(1.03);
+    }
+
+    .btn-ghost {
+      border-color: rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(0, 0, 0, 0.18);
+      background: #fff;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+    }
+
+    main {
+      flex: 1;
+    }
+
+    /* HERO */
+
+    .hero {
+      position: relative;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 22px 20px 64px;
+    }
+
+    .hero-frame {
+      position: relative;
+      border-radius: 32px;
+      overflow: hidden;
+      background: #fdf8ee;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .hero-bg-blur {
+      position: absolute;
+      inset: 0;
+      background-image: url("./greek.png");
+      background-size: cover;
+      background-position: center;
+      filter: blur(7px) brightness(0.9);
+      transform: scale(1.06);
+      z-index: 0;
+      opacity: 0.75;
+    }
+
+    .hero-overlay {
+      position: relative;
+      z-index: 1;
+      padding: 72px 70px 60px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 40px;
+      align-items: center;
+      background:
+        linear-gradient(to right, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.86)),
+        radial-gradient(circle at top left, rgba(250, 239, 215, 0.7), transparent 55%);
+    }
+
+    @media (max-width: 880px) {
+      .hero-overlay {
+        grid-template-columns: minmax(0,1fr);
+        padding: 70px 22px 50px;
+      }
+    }
+
+    .hero-kolonna-left,
+    .hero-kolonna-right {
+      position: absolute;
+      top: 9%;
+      width: 96px;
+      height: 72%;
+      border-radius: 999px;
+      border: 1px solid rgba(230, 207, 154, 0.9);
+      background: linear-gradient(to bottom, rgba(255, 253, 246, 0.95), rgba(245, 230, 194, 0.95));
+      opacity: 0.55;
+      filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.12));
+      z-index: 1;
+    }
+
+    .hero-kolonna-left { left: 26px; }
+    .hero-kolonna-right { right: 26px; }
+
+    @media (max-width: 880px) {
+      .hero-kolonna-left,
+      .hero-kolonna-right { display: none; }
+    }
+
+    .hero-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(30px, 3vw + 18px, 40px);
+      line-height: 1.1;
+      margin-bottom: 16px;
+      color: #2a2530;
+    }
+
+    .hero-title span {
+      color: var(--accent-strong);
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 420px;
+      margin-bottom: 22px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .badge {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-muted);
+    }
+
+    .badge strong {
+      color: var(--accent-strong);
+      font-weight: 600;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .hero-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      max-width: 270px;
+    }
+
+    .hero-right-card {
+      border-radius: 22px;
+      border: 1px solid rgba(228, 204, 150, 0.9);
+      background:
+        radial-gradient(circle at top, rgba(250, 234, 201, 0.85), transparent 60%),
+        #fffdf6;
+      padding: 20px 18px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-right-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background-image: url("scroll.jpg");
+      background-size: cover;
+      background-position: center;
+      opacity: 0.16;
+      mix-blend-mode: multiply;
+      filter: blur(5px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-right-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-right-title {
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      margin-bottom: 6px;
+      color: #3b2c18;
+    }
+
+    .hero-right-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .hero-steps {
+      display: grid;
+      gap: 8px;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .hero-step {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .hero-step-bullet {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(207, 167, 91, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--accent-strong);
+      flex-shrink: 0;
+      background: #fffaf1;
+    }
+
+    .hero-step-text span {
+      color: var(--accent-strong);
+    }
+
+    .hero-right-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .hero-right-footer strong {
+      color: var(--accent-strong);
+    }
+
+    /* КАРУСЕЛЬ ФИЛОСОФОВ */
+
+    .strip-wrapper {
+      max-width: 1020px;
+      margin: -24px auto 32px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .strip {
+      position: relative;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.06);
+      display: flex;
+      align-items: stretch;
+      padding: 6px 44px;
+      overflow: hidden;
+    }
+
+    @media (max-width: 720px) {
+      .strip {
+        border-radius: 22px;
+        padding: 8px 38px;
+      }
+    }
+
+    .strip-track {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      flex: 1;
+    }
+
+    .strip-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .strip-item {
+      flex: 0 0 210px;
+      max-width: 210px;
+      scroll-snap-align: center;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      background:
+        radial-gradient(circle at left, rgba(250, 235, 201, 0.5), transparent 55%),
+        #fffdf7;
+    }
+
+    .strip-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(207, 167, 91, 0.9);
+      flex-shrink: 0;
+      background: radial-gradient(circle at 30% 20%, #fff9de 0, #f6cf7a 40%, #cfa75b 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Playfair Display", serif;
+      font-size: 16px;
+      color: #3b2611;
+    }
+
+    .strip-text {
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .strip-name {
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--accent-strong);
+      margin-bottom: 2px;
+    }
+
+    .strip-quote {
+      color: var(--text-muted);
+    }
+
+    .strip-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.18);
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.9), rgba(248, 235, 207, 0.96));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.16s ease-out;
+      z-index: 2;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    .strip-nav:hover {
+      transform: translateY(-50%) scale(1.05);
+      border-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .strip-nav-prev { left: 12px; }
+    .strip-nav-next { right: 12px; }
+
+    @media (max-width: 540px) {
+      .strip-nav {
+        width: 24px;
+        height: 24px;
+        font-size: 13px;
+      }
+      .strip-nav-prev { left: 8px; }
+      .strip-nav-next { right: 8px; }
+      .strip-item {
+        flex-basis: 190px;
+        max-width: 190px;
+      }
+    }
+
+    /* НИЖНИЕ БЛОКИ */
+
+    .sections {
+      max-width: 1120px;
+      margin: 0 auto 72px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 880px) {
+      .sections {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      border-radius: var(--radius-xl);
+      background: var(--card);
+      border: 1px solid var(--border-soft);
+      padding: 22px 22px 18px;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.06);
+    }
+
+    .card h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: #30251a;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    /* О школе и преподавателе */
+
+    .card-about .about-layout {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 720px) {
+      .card-about .about-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .teacher-photo {
+      border-radius: 18px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background:
+        radial-gradient(circle at top left, rgba(250, 231, 196, 0.9), transparent 70%),
+        #f4ebdd;
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      aspect-ratio: 3 / 4;
+      position: relative;
+    }
+
+    .teacher-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .teacher-photo-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 6px;
+      color: rgba(80, 66, 48, 0.7);
+      font-size: 12px;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .teacher-photo-placeholder span {
+      font-size: 22px;
+      font-family: "Playfair Display", serif;
+    }
+
+    .about-text-strong {
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #463622;
+      font-weight: 600;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .pill {
+      font-size: 12px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: rgba(249, 240, 223, 0.7);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      color: var(--text-muted);
+    }
+
+    .contacts {
+      font-size: 14px;
+      color: var(--text-muted);
+      display: grid;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .contacts strong {
+      color: var(--accent-strong);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      padding: 24px 16px 32px;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+      background: #f9f2e6;
+    }
+
+    /* МОДАЛКА TELEGRAM */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease-out;
+      z-index: 50;
+    }
+
+    .modal-backdrop.is-open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-window {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 22px 22px 18px;
+      max-width: 360px;
+      width: 100%;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+      position: relative;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.12);
+      background: #f9f4ea;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      line-height: 1;
+      color: #5a4a33;
+    }
+
+    .modal-close:hover {
+      background: #fff;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+    }
+
+    .modal-window h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: #332619;
+    }
+
+    .modal-window p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .modal-window strong {
+      color: var(--accent-strong);
+    }
+
+    .modal-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    @media (max-width: 540px) {
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .header-cta {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="header-inner">
+      <div class="logo-group">
+        <div class="logo-mark">Σ</div>
+        <div>
+          <div class="logo-text-main">ΣΧΟΛΕΙΟ ΑΘΗΝΑ</div>
+          <div class="logo-text-sub">Классика греческой мысли + современная математика</div>
+        </div>
+      </div>
+      <div class="header-cta">
+        <!-- Скачать программу: скачивание PDF -->
+        <a href="program.pdf" class="btn btn-ghost" download>Скачать программу</a>
+        <!-- Записаться на пробный урок: модалка Telegram -->
+        <button class="btn btn-primary js-open-telegram">Записаться на пробный урок</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-frame">
+        <div class="hero-bg-blur"></div>
+        <div class="hero-kolonna-left"></div>
+        <div class="hero-kolonna-right"></div>
+
+        <div class="hero-overlay">
+          <div>
+            <div class="hero-badges">
+              <div class="badge"><strong>11–18 лет</strong> · углублённая математика</div>
+              <div class="badge">подготовка к олимпиадам и ЕГЭ</div>
+            </div>
+          <h1 class="hero-title">
+    Математическая школа<br>
+    <span style="font-size:40px; font-weight:700;">АФИНА</span>
+</h1>
+            <p class="hero-subtitle">
+              Индивидуальные и групповые занятия с упором на понимание идей, а не зазубривание формул.
+              Чистая логика, красивые доказательства и уважение к классике.
+            </p>
+            <div class="hero-cta-row">
+              <!-- Кнопка «Подобрать программу» убрана по твоей просьбе -->
+              <button class="btn btn-primary js-open-telegram">Бесплатная консультация</button>
+            </div>
+            <p class="hero-note">
+              Первое занятие — диагностическое: оцениваем уровень, формируем маршрут и знакомим ребёнка
+              с преподавателем.
+            </p>
+          </div>
+
+          <aside class="hero-right-card">
+            <div class="hero-right-inner">
+              <div class="hero-right-title">Маршрут студента за 3 шага</div>
+              <div class="hero-right-sub">Так мы строим программу для каждого ученика школы.</div>
+              <div class="hero-steps">
+                <div class="hero-step">
+                  <div class="hero-step-bullet">1</div>
+                  <div class="hero-step-text">
+                    Диагностика уровня и мотивации: определяем, где сейчас ученик, и чего хочет достичь.
+                  </div>
+                </div>
+                <div class="hero-step">
+                  <div class="hero-step-bullet">2</div>
+                  <div class="hero-step-text">
+                    Сбор <span>«математического скелета»</span>: заполняем пробелы, выстраиваем опорные идеи.
+                  </div>
+                </div>
+                <div class="hero-step">
+                  <div class="hero-step-bullet">3</div>
+                  <div class="hero-step-text">
+                    Углубление: олимпиадные задачи, логика, подготовка к экзаменам в выбранные вузы.
+                  </div>
+                </div>
+              </div>
+              <div class="hero-right-footer">
+                <span>Фокус на понимании, а не на количестве задач.</span>
+                <span><strong>2–3</strong> занятия в неделю</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- КАРУСЕЛЬ ФИЛОСОФОВ -->
+    <section class="strip-wrapper">
+      <div class="strip">
+        <button class="strip-nav strip-nav-prev" type="button" aria-label="Назад">&#10094;</button>
+        <div class="strip-track">
+          <!-- Аристотель -->
+          <article class="strip-item">
+            <div class="strip-avatar">
+  <img src="aristotle.jpg" alt="Аристотель" style="width:100%;height:100%;object-fit:cover;">
+</div>
+            <div class="strip-text">
+              <div class="strip-name">Аристотель</div>
+              <div class="strip-quote">«Обучение — корень горек, но плоды его сладки»</div>
+            </div>
+          </article>
+          <!-- Платон -->
+          <article class="strip-item">
+            <div class="strip-avatar">
+  <img src="plato.jpg" alt="Платон" style="width:100%;height:100%;object-fit:cover;">
+</div>
+
+            <div class="strip-text">
+              <div class="strip-name">Платон</div>
+              <div class="strip-quote">«Начало — самая важная часть всякого дела»</div>
+            </div>
+          </article>
+          <!-- Сократ -->
+          <article class="strip-item">
+         <div class="strip-avatar">
+  <img src="socrates.jpg" alt="Сократ" style="width:100%;height:100%;object-fit:cover;">
+</div>
+
+            <div class="strip-text">
+              <div class="strip-name">Сократ</div>
+              <div class="strip-quote">«Я знаю только то, что ничего не знаю»</div>
+            </div>
+          </article>
+          <!-- Пифагор -->
+          <article class="strip-item">
+        <div class="strip-avatar">
+  <img src="pythagoras.jpg" alt="Пифагор" style="width:100%;height:100%;object-fit:cover;">
+</div>
+
+            <div class="strip-text">
+              <div class="strip-name">Пифагор</div>
+              <div class="strip-quote">«Числа правят миром»</div>
+            </div>
+          </article>
+        </div>
+        <button class="strip-nav strip-nav-next" type="button" aria-label="Вперёд">&#10095;</button>
+      </div>
+    </section>
+
+    <!-- НИЖНИЕ БЛОКИ -->
+    <section class="sections">
+      <!-- О школе и преподавателе -->
+      <div class="card card-about">
+        <h2>О школе и преподавателе</h2>
+        <div class="about-layout">
+          <div class="teacher-photo">
+            <!--
+              Заменишь founder.jpg на реальное фото.
+              Если фото не нужно — можно удалить <img> и оставить плейсхолдер.
+            -->
+            <img src="founder.jpg" alt="Преподаватель школы" />
+          </div>
+          <div>
+            <div class="about-text-strong">
+              Преподаватель — практикующий математик с многолетним опытом работы со школьниками и студентами.
+            </div>
+            <p>
+              На занятиях мы не просто «решаем задачи», а строим целостное математическое мышление.
+              От арифметики и геометрии до теории чисел и комбинаторики — важно, чтобы ребёнок понимал,
+              <em>почему</em> всё устроено именно так.
+            </p>
+            <p>
+              В основе курса — греческая традиция рассуждения: ясные определения, аккуратные доказательства
+              и уважение к логике. За счёт этого ученики уверенно справляются с контрольными, экзаменами и
+              олимпиадами.
+            </p>
+            <div class="pill-row">
+              <div class="pill">5–11 классы</div>
+              <div class="pill">олимпиадная математика</div>
+              <div class="pill">подготовка к ЕГЭ/ОГЭ</div>
+              <div class="pill">индивидуальные и мини-группы</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Контакты -->
+      <div class="card">
+        <h2>Контакты</h2>
+        <div class="contacts">
+          <div><strong>Telegram:</strong> @sergeynick_math</div>
+          <div><strong>Почта:</strong> math-school@example.com</div>
+          <div><strong>Формат:</strong> онлайн семинар - 90 минут с перерывом</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Математическая школа АФИНА· 2019
+  </footer>
+</div>
+
+<!-- Модальное окно Telegram -->
+<div class="modal-backdrop" id="telegramModal">
+  <div class="modal-window">
+    <button class="modal-close" type="button" aria-label="Закрыть">&times;</button>
+    <h3>Связаться в Telegram</h3>
+    <p>Напишите нам в Telegram: <strong>@sergeynick_math</strong></p>
+    <p class="modal-note">
+      Ответим на вопросы, подберём программу и поможем записаться на пробный урок.
+    </p>
+  </div>
+</div>
+
+<script>
+  // Карусель
+  (function () {
+    const track = document.querySelector(".strip-track");
+    const prevBtn = document.querySelector(".strip-nav-prev");
+    const nextBtn = document.querySelector(".strip-nav-next");
+
+    if (!track || !prevBtn || !nextBtn) return;
+
+    function scrollByStep(direction) {
+      const step = track.clientWidth * 0.6;
+      track.scrollBy({ left: direction * step, behavior: "smooth" });
+    }
+
+    prevBtn.addEventListener("click", () => scrollByStep(-1));
+    nextBtn.addEventListener("click", () => scrollByStep(1));
+
+    let auto = setInterval(() => scrollByStep(1), 7000);
+
+    ["mouseenter", "mousedown", "touchstart"].forEach(evt => {
+      track.addEventListener(evt, () => {
+        clearInterval(auto);
+        auto = setInterval(() => scrollByStep(1), 9000);
+      }, { passive: true });
+    });
+  })();
+
+  // Модалка Telegram
+  (function () {
+    const modal = document.getElementById("telegramModal");
+    const openers = document.querySelectorAll(".js-open-telegram");
+    const closeBtn = modal ? modal.querySelector(".modal-close") : null;
+
+    if (!modal) return;
+
+    function openModal(event) {
+      if (event) event.preventDefault();
+      modal.classList.add("is-open");
+    }
+
+    function closeModal() {
+      modal.classList.remove("is-open");
+    }
+
+    openers.forEach(btn => {
+      btn.addEventListener("click", openModal);
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", closeModal);
+    }
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    });
+  })();
+</script>
+</body>
+</html>
